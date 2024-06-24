@@ -1,3 +1,5 @@
 name: gha-selfhosted-runner
 runtime: nodejs
 description: A simple github action selfhosted runner
+config:
+  aws:region: us-east-1
