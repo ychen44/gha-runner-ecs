@@ -1,0 +1,6 @@
+{
+  "aws:region": {
+    "value": "us-east-1",
+    "secret": false
+  }
+}
