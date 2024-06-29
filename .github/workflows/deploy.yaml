@@ -40,6 +40,7 @@ jobs:
 
       - name: Setup pulumi
         run: |
+          pulumi login ${{ var.PULUMI_STATE_LOCATION }}
           pulumi stack ls
           pulumi stack select dev --non-interactive
 
