@@ -8,6 +8,7 @@ on:
 env:
   WORKING_DIRECTORY: ./iac
   REGION: us-east-1
+  PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
 
 jobs:
   build-and-push:
@@ -37,7 +38,7 @@ jobs:
       - name: Install pulumi
         uses: pulumi/actions@v4
 
-      - name: Update .env
+      - name: Setup pulumi
         run: |
           pulumi stack ls
           pulumi stack select dev --non-interactive
