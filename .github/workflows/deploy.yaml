@@ -37,10 +37,10 @@ jobs:
       - name: Install pulumi
         uses: pulumi/actions@v4
 
-     - name: Update .env
-      run: |
-        pulumi stack ls
-        pulumi stack select dev --non-interactive
+      - name: Update .env
+        run: |
+          pulumi stack ls
+          pulumi stack select dev --non-interactive
 
       # - uses: pulumi/actions@v5
       #   env:
