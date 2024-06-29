@@ -26,6 +26,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.REGION }}
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18    
+
+      - name: Install Dependencies
+        run: npm install
 
       - uses: pulumi/actions@v5
         env:
@@ -35,7 +42,7 @@ jobs:
           AWS_REGION: ${{ env.REGION }}
         with:
           command: preview
-          stack-name: ychen/gha-runner/dev
+          stack-name: dev
           cloud-url: s3://pulumi-state-bucket-04040527
 
 
