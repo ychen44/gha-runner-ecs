@@ -9,6 +9,7 @@ env:
   WORKING_DIRECTORY: ./iac
   REGION: us-east-1
   PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+  PULUMI_STATE_LOCATION: ${{ vars.PULUMI_STATE_LOCATION }} 
 
 jobs:
   build-and-push:
@@ -40,7 +41,7 @@ jobs:
 
       - name: Setup pulumi
         run: |
-          pulumi login ${{ var.PULUMI_STATE_LOCATION }}
+          pulumi login $PULUMI_STATE_LOCATION
           pulumi stack ls
           pulumi stack select dev --non-interactive
 
