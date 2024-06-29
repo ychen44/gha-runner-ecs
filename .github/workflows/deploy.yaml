@@ -35,7 +35,7 @@ jobs:
           AWS_REGION: ${{ env.REGION }}
         with:
           command: preview
-          # stack-name: dev
+          stack-name: ychen/gha-runner/dev
           cloud-url: s3://pulumi-state-bucket-04040527
 
 
