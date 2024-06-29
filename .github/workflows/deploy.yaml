@@ -44,6 +44,7 @@ jobs:
           pulumi login $PULUMI_STATE_LOCATION
           pulumi stack ls
           pulumi stack select dev --non-interactive
+          pulumi preview
 
       # - uses: pulumi/actions@v5
       #   env:
