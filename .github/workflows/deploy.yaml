@@ -34,16 +34,24 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - uses: pulumi/actions@v5
-        env:
-          PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ env.REGION }}
-        with:
-          command: preview
-          stack-name: dev
-          cloud-url: s3://pulumi-state-bucket-04040527
+      - name: Install pulumi
+        uses: pulumi/actions@v4
+
+     - name: Update .env
+      run: |
+        pulumi stack ls
+        pulumi stack select dev --non-interactive
+
+      # - uses: pulumi/actions@v5
+      #   env:
+      #     PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_REGION: ${{ env.REGION }}
+      #   with:
+      #     command: preview
+      #     stack-name: dev
+      #     cloud-url: s3://pulumi-state-bucket-04040527
 
 
     #  - name: Update .env
