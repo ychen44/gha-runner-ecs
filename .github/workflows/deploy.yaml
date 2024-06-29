@@ -1,4 +1,4 @@
-name: Build and Push Docker Image to ECR
+name: Deploy Iac
 
 on:
   push:
@@ -36,10 +36,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Install pulumi
+      - name: Install Infrastructure Tool
         uses: pulumi/actions@v4
 
-      - name: Setup pulumi
+      - name: Setup Infrastructure Tool
         run: |
           pulumi login $PULUMI_STATE_LOCATION
           pulumi stack ls
