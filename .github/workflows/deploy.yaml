@@ -5,20 +5,46 @@ on:
     branches:
       - main
 
+env:
+  WORKING_DIRECTORY: ./iac
+  REGION: us-east-1
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: <your-aws-region>
+          aws-region: ${{ env.REGION }}
+
+      - uses: pulumi/actions@v5
+        env:
+          PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+        with:
+          command: preview
+          stack-name: dev
+          cloud-url: s3://pulumi-state-bucket-04040527
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-west-2'
+
+    #  - name: Update .env
+    #   run: |
+        
+      # working-directory: ${{ env.WORKING_DIRECTORY }}
+      # shell: bash
 
     #   - name: Login to Amazon ECR
     #     id: login-ecr
